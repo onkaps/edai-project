@@ -13,8 +13,11 @@ export default class NumberPlane extends AnimObject2D {
     
     xAxis: Line
     yAxis: Line
-    xPoints: Point[] = []
-    yPoints: Point[] = []
+    xPosPoints: Point[] = []
+    xNegPoints: Point[] = []
+    yPosPoints: Point[] = []
+    yNegPoints: Point[] = []
+
     unit: number
 
     constructor ({unit, s}: { unit: number, s: Scene2D }) {
@@ -23,15 +26,39 @@ export default class NumberPlane extends AnimObject2D {
         this.xAxis = new Line(Lines.doublePoint, { x1: Width.half, y1: 0, x2: Width.half, y2: Height.full }, s);
         this.yAxis = new Line(Lines.doublePoint, { x1: 0, y1: Height.half, x2: Width.full, y2: Height.half }, s);
 
-        for (let i = 0; i < 5; i++) {
-            this.xPoints.push(new Point(i * this.unit, 0, { scene: s }))
+        for (let i = 0; i < Width.full; i++) {
+            this.xPosPoints.push(new Point( Width.half + i * this.unit, Height.half, { scene: s }))
+        }
+        for (let i = 0; i < Width.full; i++) {
+            this.xNegPoints.push(new Point( Width.half - i * this.unit, Height.half, { scene: s }))
+        }
+
+        for (let i = 0; i < Height.full; i++) {
+            this.yPosPoints.push(new Point( Width.half, Height.half - i * this.unit, { scene: s }))
+        }
+        for (let i = 0; i < Height.full; i++) {
+            this.yNegPoints.push(new Point( Width.half, Height.half + i * this.unit, { scene: s }))
         }
     }
 
     draw (p: p5) {
         this.xAxis.draw(p)
         this.yAxis.draw(p)
-        for (let pt of this.xPoints) {
+
+        for (let pt of this.xPosPoints) {
+            p.stroke(this.colour.rgba)
+            pt.draw(p)
+        }
+        for (let pt of this.xNegPoints) {
+            p.stroke(this.colour.rgba)
+            pt.draw(p)
+        }
+
+
+        for (let pt of this.yPosPoints) {
+            pt.draw(p)
+        }
+        for (let pt of this.yNegPoints) {
             pt.draw(p)
         }
 
