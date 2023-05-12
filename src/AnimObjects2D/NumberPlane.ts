@@ -43,20 +43,10 @@ export default class NumberPlane extends AnimObject2D {
     }
     
     planePoint (xCoordinate: number, yCoordinate: number, colour ?: Colour): Point {
-        
         let point
-        if ( xCoordinate >= 0 && yCoordinate >= 0){
-            point = new Point( Width.half + xCoordinate * this.unit, Height.half - yCoordinate * this.unit,{ scene: this.scene, colour: colour || this.colour })
-        }
-        else if ( xCoordinate < 0 && yCoordinate > 0) {
-            point = new Point( Width.half + xCoordinate * this.unit, Height.half - yCoordinate * this.unit, { scene: this.scene, colour: colour || this.colour } )
-        }
-        else if ( xCoordinate < 0 && yCoordinate < 0) {
-            point = new Point( Width.half + xCoordinate * this.unit, Height.half - yCoordinate * this.unit, { scene: this.scene, colour: colour || this.colour })
-        }
-        else if (xCoordinate > 0 && yCoordinate < 0) {
-            point = new Point( Width.half + xCoordinate * this.unit, Height.half - yCoordinate * this.unit, { scene: this.scene , colour: colour || this.colour} )
-        }
+        point = new Point( Width.half + xCoordinate * this.unit, Height.half - yCoordinate * this.unit,{ 
+            scene: this.scene, colour: colour || this.colour 
+        })
         this.points.push(point as Point)
         return point as Point;
     }
